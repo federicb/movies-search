@@ -5,18 +5,19 @@ import "./App.css";
 import Movies from "./components/Movies";
 
 function App() {
-  const { movies } = useMovies();
-  const { searchMovies, updatedSearchMovies, error } = useSearch();
+  const { search, updatedSearch, error } = useSearch();
+  const { movies, getMovies } = useMovies({ search });
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    console.log({ searchMovies });
+    // console.log({ search });
+    getMovies();
   };
 
   const handlerChange = (event) => {
     const newSearch = event.target.value;
     if (newSearch.startsWith(" ")) return;
-    updatedSearchMovies(newSearch);
+    updatedSearch(newSearch);
   };
 
   return (
@@ -26,7 +27,7 @@ function App() {
         <form className="form" onSubmit={handlerSubmit}>
           <input
             onChange={handlerChange}
-            value={searchMovies}
+            value={search}
             placeholder="Interstellar, The Martian, ..."
             style={{
               borderColor: error ? "red" : "#e9e9e9",

@@ -1,17 +1,18 @@
-import with_results from "../mocks/resultados.json";
-import without_results from "../mocks/no-resultados.json";
+// import with_results from "../mocks/resultados.json";
+// import without_results from "../mocks/no-resultados.json";
+import { useState } from "react";
+import { searchMovies } from "../services/fetchMovies";
 
-function useMovies() {
-  const movies = with_results.Search;
+function useMovies({ search }) {
+  const [movies, setMovies] = useState([]);
 
-  const listMovies = movies?.map((movie) => ({
-    id: movie.imdbID,
-    title: movie.Title,
-    poster: movie.Poster,
-    year: movie.Year,
-  }));
+  const getMovies = async () => {
+    // toma la busqueda 'search', la realiza 'searchMovies' y actualiza 'movies' con 'newMovies'
+    const newMovies = await searchMovies({ search });
+    setMovies(newMovies);
+  };
 
-  return { movies: listMovies };
+  return { movies, getMovies };
 }
 
 export default useMovies;

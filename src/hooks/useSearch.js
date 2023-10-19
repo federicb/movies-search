@@ -1,30 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 
 function useSearch() {
-  const [searchMovies, updatedSearchMovies] = useState("");
+  const [search, updatedSearch] = useState("");
   const [error, setError] = useState(null);
   const firstInput = useRef(true);
 
   useEffect(() => {
     if (firstInput.current) {
-      firstInput.current = searchMovies === "";
+      firstInput.current = search === "";
       return;
     }
 
-    if (searchMovies === "") {
+    if (search === "") {
       setError("No se puede buscar películas vacias.");
       return;
     }
 
-    if (searchMovies.length < 2) {
+    if (search.length < 2) {
       setError("La búsqueda debe tener al menos 2 caracteres.");
       return;
     }
 
     setError(null);
-  }, [searchMovies]);
+  }, [search]);
 
-  return { searchMovies, updatedSearchMovies, error };
+  return { search, updatedSearch, error };
 }
 
 export default useSearch;
