@@ -4,3 +4,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.error {
+  color: #eb1818;
+}
