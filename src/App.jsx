@@ -6,12 +6,13 @@ import Movies from "./components/Movies";
 
 function App() {
   const { search, updatedSearch, error } = useSearch();
-  const { movies, getMovies } = useMovies({ search });
+  const { movies, getMovies, loading } = useMovies({ search });
 
   const handlerSubmit = (event) => {
     event.preventDefault();
     // console.log({ search });
-    getMovies();
+    //pasamos search comoi parametro
+    getMovies(search);
   };
 
   const handlerChange = (event) => {
@@ -39,7 +40,7 @@ function App() {
         {error && <p className="error">{error}</p>}
       </header>
       <main>
-        <Movies movies={movies} />
+        {loading ? <p>Buscando...</p> : <Movies movies={movies} />}        
       </main>
     </div>
   );
